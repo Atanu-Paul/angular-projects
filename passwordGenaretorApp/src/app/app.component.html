@@ -1,26 +1,64 @@
-<h1>Generate New Password</h1>
-<div>
-  <label>Enter the Lenght of the password</label>
-  <input />
-</div>
-<div>
-  <label>Use Letters</label>
-  <input type="checkbox" />
-</div>
-<div>
-  <label>Use Numbers</label>
-  <input type="checkbox" />
-</div>
-<div>
-  <label>Use Symbols</label>
-  <input type="checkbox" />
-</div>
-<div>
-  <button (click)="onButtonClick()">Generate New Password</button>
-</div>
-<div>
-  <label>Your New Password</label>
-  <input type="text" [value]="password" />
+<div class="container passbox">
+  <div class="columns is-centered">
+    <div class="box column is-one-third">
+      <h1 class="title has-text-centered">Generate New Password</h1>
+
+      <div class="field">
+        <label>Enter the Lenght of the password</label>
+        <input
+          placeholder="Enter the length of the password"
+          (input)="onInput($event.target.value)"
+        />
+        <!-- $event is the way to acces the event object of the DOM which means in an angular project instead of event.target.value we write 
+  $event.target.value rest of the concept is the same. -->
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <label class="checkbox"
+            >Use Letters
+            <input type="checkbox" (change)="onChangeUseLetters()" />
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <label class="checkbox"
+            >Use Numbers
+            <input type="checkbox" (change)="onChangeUseNumbers()" />
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <label class="checkbox"
+            >Use Symbols
+            <input type="checkbox" (change)="onChangeUseSymbols()" />
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <button
+          class="button is-link is-fullwidth"
+          (click)="onButtonClick()"
+          [disabled]="
+            !(passwordLenght && (haveLetter || haveNumber || haveSymbols))
+          "
+        >
+          Generate New Password
+        </button>
+      </div>
+
+      <div class="box" *ngIf="password">
+        <label>Your New Password</label>
+        <input type="text" [value]="password" />
+      </div>
+    </div>
+  </div>
 </div>
 <!-- this is call interpolation in angular
 {{ showName() }}-->
+<!-- {{ password }} -->
